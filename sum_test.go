@@ -1,6 +1,10 @@
-package sum
+package sum_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/campoy/justforfunc/16-testing/sum"
+)
 
 func TestInts(t *testing.T) {
 	tt := []struct {
@@ -14,9 +18,11 @@ func TestInts(t *testing.T) {
 	}
 
 	for _, tc := range tt {
-		s := Ints(tc.numbers...)
-		if s != tc.sum {
-			t.Errorf("sum of %v should be %v; got %v", tc.name, tc.sum, s)
-		}
+		t.Run(tc.name, func(t *testing.T) {
+			s := sum.Ints(tc.numbers...)
+			if s != tc.sum {
+				t.Fatalf("sum of %v should be %v; got %v", tc.name, tc.sum, s)
+			}
+		})
 	}
 }
